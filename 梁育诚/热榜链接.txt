@@ -1,6 +1,0 @@
-CSDN热榜：https://blog.csdn.net/rank/list
-GitHub热榜：
-	中文：https://github.com/trending?spoken_language_code=zh
-	英文：https://github.com/trending
-gitee热榜：
-OSCHINA热榜：https://www.oschina.net/news/industry
