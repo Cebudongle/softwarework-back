@@ -1,0 +1,5 @@
+CREATE TABLE `collection` (
+  `article` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `type` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`article`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
