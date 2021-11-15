@@ -1,0 +1,1 @@
+CREATE TABLE `push` ( `article` VARCHAR ( 40 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '', PRIMARY KEY ( `article` ) ) ENGINE = INNODB DEFAULT CHARSET = utf8;

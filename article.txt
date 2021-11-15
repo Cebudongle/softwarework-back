@@ -1,0 +1,9 @@
+CREATE TABLE `article` (
+	`URL` VARCHAR ( 255 ) CHARACTER 
+	SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+	`content` VARCHAR ( 40 ) CHARACTER 
+	SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+	`platform` VARCHAR ( 40 ) CHARACTER 
+	SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+PRIMARY KEY ( `URL` ) 
+) ENGINE = INNODB DEFAULT CHARSET = utf8;

@@ -1,0 +1,5 @@
+CREATE TABLE `monthlist` (
+  `publication` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `article` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  PRIMARY KEY (`publication`,`article`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
