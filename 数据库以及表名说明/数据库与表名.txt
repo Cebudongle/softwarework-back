@@ -1,0 +1,16 @@
+总共有7张表。
+1.user（用户表）；
+ID、userName、password
+2.subscribe（订阅表）；
+author、publication
+3.collection（收藏表）；
+article、type
+4.search（搜索表）；
+result、entry
+5.push（推送表）；
+article
+6.list（榜单表）；
+publication、article
+榜单还可以考虑再分为partion（专区表）、monthlist（月榜表）和dailylist（日榜表）。
+7.article（文章表）。
+URL、content、platform
