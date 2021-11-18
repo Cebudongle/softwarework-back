@@ -1,0 +1,7 @@
+CREATE TABLE `subscribe` (
+	`author` VARCHAR ( 40 ) CHARACTER 
+	SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+	`publication` VARCHAR ( 40 ) CHARACTER 
+	SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+PRIMARY KEY ( `author`, `publication` ) 
+) ENGINE = INNODB DEFAULT CHARSET = utf8;
