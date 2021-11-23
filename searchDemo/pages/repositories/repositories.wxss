@@ -1,0 +1,73 @@
+@import '../../utils/util.wxss';
+
+.repositories {
+  padding: 40rpx;
+}
+
+/*搜索结果数量*/
+
+.repositories-result {
+  color: #999;
+  font-weight: 600;
+  background-color: #f8f8f8;
+  padding: 10rpx 30rpx;
+  font-size: 32rpx;
+}
+
+/*搜索结果列表*/
+
+.repositories-list {
+  padding: 30rpx 10rpx 10rpx;
+  border-bottom: 2rpx #e1e4e8 solid;
+}
+
+/*标题*/
+
+.list-title {
+  line-height: 100rpx;
+  position: relative;
+}
+
+/*库名*/
+
+.title-name {
+  color: #0366d6;
+  font-size: 44rpx;
+  padding-right: 220rpx;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/*额外内容*/
+
+.title-extend {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 24rpx;
+}
+
+.title-extend view {
+  display: inline-block;
+  border-radius: 6rpx;
+}
+
+
+.extend-star {
+  margin-left: 30rpx;
+}
+
+/*描述*/
+
+.list-desc {
+  color: #586069;
+  font-size: 30rpx;
+}
+
+/*最后一次更新时间*/
+
+.list-updated {
+  color: #888;
+  font-size: 24rpx;
+  margin-top: 20rpx;
+}

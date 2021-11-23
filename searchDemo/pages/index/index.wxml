@@ -1,0 +1,17 @@
+
+<!--index.wxml-->
+<view class="container">
+
+  <!--GitHub's logo-->
+  <view bindtap="bindViewTap" class="github-icon">
+    <image class="github-avatar" src="../../utils/fluidicon.png" background-size="cover"></image>
+  </view>
+
+  <!--搜索框-->
+  <view class="search">
+      <input class="search-input" placeholder="Search GitHub" confirm-type="search" bindinput="recordSearch" bindconfirm="searchConfirm" />
+
+      <!--按钮-->
+      <button class="search-button" bindtap="searchConfirm" size="mini">Search</button>
+  </view>
+</view>

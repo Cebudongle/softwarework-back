@@ -1,0 +1,37 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/repositories/repositories",
+        "pages/user/user",
+        "pages/search/search",
+        "pages/future/future"
+    ],
+    "window": {
+        "navigationBarBackgroundColor": "#24292E",
+        "enablePullDownRefresh": true
+    },
+    "tabBar": {
+        "backgroundColor": "#FAFBFC",
+        "list": [
+            {
+                "pagePath": "pages/repositories/repositories",
+                "text": "Repositories",
+                "iconPath": "utils/img/repositories.png",
+                "selectedIconPath": "utils/img/repositories.png"
+            },
+            {
+                "pagePath": "pages/search/search",
+                "text": "Search",
+                "iconPath": "utils/img/search.png",
+                "selectedIconPath": "utils/img/search.png"
+            },
+            {
+                "pagePath": "pages/user/user",
+                "text": "User",
+                "iconPath": "utils/img/user.png",
+                "selectedIconPath": "utils/img/user.png"
+            }
+        ]
+    },
+    "sitemapLocation": "sitemap.json"
+}

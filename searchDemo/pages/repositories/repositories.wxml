@@ -1,0 +1,45 @@
+<!-- 搜索的结果页面 -->
+<view class="repositories">
+
+  <!--搜索结果数量-->
+  <view class="repositories-result">
+    {{result}} repository results
+  </view>
+
+  <!--结果列表-->
+  <view class="repositories-list" wx:for="{{list}}" wx:key="id">
+
+    <!--标题-->
+    <view class="list-title clearfix">
+    
+      <!--库名，点击仓库后跳转到该仓库详情页面，还没实现-->
+      <navigator class="title-name one_txt_cut" url="../future/future">
+        {{item.name}}/{{item.owner.login}}
+      </navigator>
+
+      <!--额外信息（包括语言、star数量）-->
+      <view class="title-extend">
+
+        <!--所属语言类型-->
+        <view class="extend-type">
+          {{item.language}}
+        </view>
+
+        <!--star-->
+        <view class="extend-star">
+          {{item.stargazers_count}}
+        </view>
+      </view>
+    </view>
+
+    <!--描述-->
+    <view class="list-desc">
+      {{item.description}}
+    </view>
+
+    <!--最后一次更新时间-->
+    <view class="list-updated">
+      {{item.updated_at}}
+    </view>
+  </view>
+</view>

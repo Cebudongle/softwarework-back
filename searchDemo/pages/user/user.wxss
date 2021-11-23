@@ -1,0 +1,35 @@
+@import '../../utils/util.wxss';
+
+.user {
+    padding: 40rpx;
+}
+/*搜索结果数量*/
+.user-result {
+    color: #999999;
+    font-weight: 600;
+    background-color: #f8f8f8;
+    padding: 10rpx 30rpx;
+    font-size:32rpx;
+}
+/*搜索结果列表*/
+.user-list {
+    padding:20rpx 10rpx;
+    border-bottom: 2rpx #e1e4e8 solid;
+}
+
+/*头像*/
+.list-img {
+    width: 96rpx;
+    height: 96rpx;
+    vertical-align: middle;
+}
+/*用户信息*/
+.list-info {
+    margin-left: 20rpx;
+    font-size: 40rpx;
+    display: inline-block;
+    line-height: 96rpx;
+    color: #999;
+    vertical-align: middle;
+}
+
