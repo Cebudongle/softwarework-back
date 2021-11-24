@@ -1,0 +1,21 @@
+<!-- 搜索用户 -->
+
+<view class="user">
+
+  <!--搜索结果数量-->
+  <view class="user-result">
+    {{result}} repository results
+  </view>
+
+  <!--结果列表-->
+  <view class="user-list" wx:for="{{list}}" wx:key="id">
+
+    <!--头像-->
+    <image class="list-img" mode="scaleToFill" src="{{item.avatar_url}}"></image>
+
+    <!--用户信息-->
+    <navigator class="list-info" url="../future/future">
+      {{item.login}}
+    </navigator>
+  </view>
+</view>

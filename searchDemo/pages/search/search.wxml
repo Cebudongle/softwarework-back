@@ -1,0 +1,13 @@
+<!-- 搜索框页面 -->
+
+<!--index.wxml-->
+<view class="container">
+
+  <!--搜索框-->
+  <view class="search">
+      <input class="search-input" placeholder="Search GitHub" confirm-type="search" bindinput="recordSearch" bindconfirm="searchConfirm" value="{{inputStr}}" />
+
+      <!--按钮-->
+      <button class="search-button" bindtap="searchConfirm" size="mini">Search</button>
+  </view>
+</view>
