@@ -14,9 +14,8 @@ def sql_init():
     return cursor
 
 #----------资讯获取------------#
-@app.route("/news")
+@app.route("/news", methods=["GET"])
 # 只接受get方法访问
-#@app.route("/", methods=["GET"])
 def check_news():
     # 默认返回内容
     return_dict = {'code': 1, 'result': False, 'msg': '请求成功'}
@@ -29,6 +28,7 @@ def check_news():
     get_data = request.args.to_dict()
     # 对参数进行操作
     return_dict['result'] = sql_result_news()
+    print(return_dict)
     return json.dumps(return_dict, ensure_ascii=False)
 # 功能函数
 def sql_result_news():
@@ -64,16 +64,13 @@ def sql_result_hotlist():
 # --------返回openID----------#
 @app.route("/login", methods=["GET"])
 def login():
-    #requestArgs = request.values
     ID = request.args.get("userOpenid",'')
     ID = ID.replace("-","_")
-    #get username , password
     if (ID != None):
         conn = pymysql.connect(host='110.40.239.161', user='Cebudongle', passwd='Cebudongle123', port=3306,
                                db='wp_user', charset='utf8', autocommit=True)
         cursor = conn.cursor()
-        cursor.execute("create table if not exists "+ ID +" (user_likes_title varchar(80) unique, user_likes_url varchar(200))")
-        cursor.execute("ALTER TABLE `wp_user`." + ID +" CHANGE COLUMN `user_likes_title` `user_likes_title` VARCHAR(80) CHARACTER SET 'utf8mb4' NULL DEFAULT NULL")
+        cursor.execute("Insert ignore into `wp_user`.`wp_user` values( '" + ID +"')")
         conn.close()
     return ID
 
@@ -90,10 +87,24 @@ def add_user_likes():
     conn = pymysql.connect(host='110.40.239.161', user='Cebudongle', passwd='Cebudongle123', port=3306,
                            db='wp_user', charset='utf8', autocommit=True)
     cursor = conn.cursor(DictCursor)
-    #cursor.execute("select count(*) from " + ID + " where user_likes_title="+user_likes_title)
-    add_user_likes_sql = "Insert ignore into " + ID + " values( '" +  user_likes_title + "', '" + user_likes_url +  "' );"
+    add_user_likes_sql = "Insert ignore into wp_user_likes   values( '" + ID + "', '" + user_likes_title + "', '" + user_likes_url +  "' );"
     cursor.execute(add_user_likes_sql)
-    return "ojbk"
+    return "add user_like successfully"
+
+#----------删除收藏-----------#
+#-—---返回 openID+文章名+url---#
+@app.route("/del_user_likes")
+def del_user_likes():
+    ID = request.args.get("userOpenid", '')
+    ID = ID.replace("-", "_")
+    user_likes_title = request.args.get("title", '')
+    print(user_likes_title)
+    conn = pymysql.connect(host='110.40.239.161', user='Cebudongle', passwd='Cebudongle123', port=3306,
+                           db='wp_user', charset='utf8', autocommit=True)
+    cursor = conn.cursor(DictCursor)
+    del_user_likes_sql = "Delete from wp_user_likes where user_ID = '" + ID + "' and user_likes_title = '" + user_likes_title  + "';"
+    cursor.execute(del_user_likes_sql)
+    return "delete user_like successfully"
 
 #----------查看收藏-----------#
 # --------返回openID----------#
@@ -117,7 +128,7 @@ def sql_result_user_likes():
     conn = pymysql.connect(host='110.40.239.161', user='Cebudongle', passwd='Cebudongle123', port=3306,
                            db='wp_user', charset='utf8', autocommit=True)
     cursor = conn.cursor(DictCursor)
-    cursor.execute("SELECT * FROM "+ ID +" where user_likes_title is not null")
+    cursor.execute("SELECT * FROM wp_user_likes where user_ID = '" + ID + "';")
     result = cursor.fetchall()
     print(result)
     return result
