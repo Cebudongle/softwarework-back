@@ -1,25 +1,21 @@
 import time
 from datetime import datetime
 from urllib.parse import urlencode
+import emoji
 
 import pymysql
 import pymysql.converters
 import requests
 from bs4 import BeautifulSoup
-from pymysql.converters import escape_string
-
-# def connectDB():
-#     #连接数据库
-#     conn=pymysql.connect(host = '127.0.0.1',user = 'root',passwd ='123456',port = 3306,db = 'whitepenguin',charset = 'utf8',autocommit=True)
-#     cursor = conn.cursor() #生成游标对象
-#     return cursora
 
 id = 1
 def dataBase_init():
-    conn = pymysql.connect(host='127.0.0.1', user='root', passwd='123456', port=3306, db='crawler_test1',autocommit=True)
+    #conn = pymysql.connect(host='127.0.0.1', user='root', passwd='123456', port=3306, db='crawler_test1',autocommit=True)
     #conn = pymysql.connect(host='123.60.214.55', user='ce', passwd='Cebudongle123', port=3306, db='whitepenguin',autocommit=True)
+    conn = pymysql.connect(host='110.40.239.161', user='Cebudongle', passwd='Cebudongle123', port=3306, db='whitepenguin',charset='utf8',autocommit=True)
     cur = conn.cursor()  # 生成游标对象
-    createTableSql = "CREATE TABLE IF NOT EXISTS " + "osChina " + "(date varchar(10), id varchar(20), blogTitle varchar(80), blogUrl varchar(200), blogBrief varchar(600), blogText longtext);"
+    #createTableSql = "CREATE TABLE IF NOT EXISTS " + "osChina " + "(date varchar(10), id varchar(20), blogTitle varchar(80), blogUrl varchar(200), blogBrief varchar(600), blogText longtext);"
+    createTableSql = "CREATE TABLE IF NOT EXISTS " + "osChina " + "(date varchar(10), id varchar(20), blogTitle varchar(80), blogUrl varchar(200), blogBrief varchar(600));"
     cur.execute(createTableSql)
     iniTableSql = "delete from " + "osChina;"
     cur.execute(iniTableSql)
@@ -30,8 +26,9 @@ def dataBase_init():
     return 1
 
 def dataBase_insert(blogTitle, blogUrl, blogBrief, blogText):
-    conn = pymysql.connect(host='127.0.0.1', user='root', passwd='123456', port=3306, db='crawler_test1',autocommit=True)
+    #conn = pymysql.connect(host='127.0.0.1', user='root', passwd='123456', port=3306, db='crawler_test1',autocommit=True)
     #conn = pymysql.connect(host='123.60.214.55', user='ce', passwd='Cebudongle123', port=3306, db='whitepenguin',autocommit=True)
+    conn = pymysql.connect(host='110.40.239.161', user='Cebudongle', passwd='Cebudongle123', port=3306,db='whitepenguin', charset='utf8', autocommit=True)
     cur = conn.cursor()  # 生成游标对象
     global id
     year = datetime.now().year
@@ -39,7 +36,7 @@ def dataBase_insert(blogTitle, blogUrl, blogBrief, blogText):
     day = datetime.now().day
     date = str(year) + "/" + str(month) + "/" + str(day)
     id1 = str(id)
-    insertTableSql = "insert into " + "`osChina` " + "values( '" + date + "', '" + id1 + "', '" + blogTitle + "', '" + blogUrl + "', '" + blogBrief + "', '" + blogText + "' );"
+    insertTableSql = "insert into " + "`osChina` " + "values( '" + date + "', '" + id1 + "', '" + blogTitle + "', '" + blogUrl + "', '" + blogBrief +  "', '" + blogText + "' );"
     id += 1
     cur.execute(insertTableSql)
     cur.close()
@@ -68,25 +65,33 @@ def getPage(number):
             divs = soup.find_all('div', {"class" : "item news-item news-item-hover"})
             global id
             for list in divs:
-                #blogUrl = list.get("data-url")
                 if(list.get("data-url")!=''):
                     blogUrl = list.get("data-url")
                 else:
                     continue
                 blogTitle = list.find("div", {"class": "title"}).get("title")
+                blogTitle = emoji.demojize(blogTitle)
                 blogBrief = list.find("p", {"class": "line-clamp"}).text
+                blogBrief = blogBrief.replace("'","''")
+                blogBrief = emoji.demojize(blogBrief)
                 blogText = getText(blogUrl)
+
                 #打印爬取信息
                 print("文章名：《"+blogTitle+"》")
                 print("文章链接：" + blogUrl)
                 print("文章简介：" + blogBrief)
+                print("\n")
+                #文章内容爬取
                 if (blogText!=False):
                     print("文章内容：" + blogText)
                 print("\n")
+                if (type(blogText) != bool):
+                    blogText = blogText.replace("'", "''")
+                    blogText = emoji.demojize(blogText)
                 if (type(blogText)!=str):
                     blogText = ""
-
-                dataBase_insert(blogTitle,blogUrl,blogBrief,escape_string(blogText))
+                dataBase_insert(blogTitle,blogUrl,blogBrief,blogText)
+                #dataBase_insert(blogTitle,blogUrl,blogBrief)
     except requests.ConnectionError:
         return None
 
@@ -104,7 +109,7 @@ def getText(url):
     soup = BeautifulSoup(res.content.decode("UTF-8"), "html.parser")
     #返回指定标签下的文章内容
     t = soup.find("div", {"class": "article-detail"})
-    img = soup.find("img").get("src")
+    #img = soup.find("img").get("src")
     if(t!=None):
         return t.text
     else:
@@ -125,11 +130,11 @@ def main():
             else:
                 print("dataBase initialize error.")
 
-            for number in range(0, 2):  # 3Pages
+            for number in range(0, 8):  # 4Pages
                 getPage(number)
                 print("\n")
-            # 定时一天爬取一次
-            time.sleep(2000)
+            # 定时5h爬取一次
+            time.sleep(18000)
         else:
             print("Time out, stop.")
             break
